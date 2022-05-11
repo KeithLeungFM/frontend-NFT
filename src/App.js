@@ -13,6 +13,7 @@ function App() {
       <Routes>
         <Route path ="/mint" element={<Mint/>}/>
         <Route path ="/withdraw" element={<Withdraw/>}/>
+        <Route path ="/" element={<Withdraw/>}/>
 
       </Routes>
     </Router>
