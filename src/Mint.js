@@ -24,7 +24,7 @@ import BlockchainStories from "./contract/BlockchainStories.json"
 const theme = createTheme();
 
 export default function Edit() {
-
+  const backendAddress = process.env.REACT_APP_BACKEND_ADDRESS
   const [baseImg, setBaseImg] = useState('https://images.unsplash.com/photo-1650351858876-eec34590260c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')
   const [draftImg, setDraftImg] = useState({
     uri: '',
@@ -99,7 +99,7 @@ export default function Edit() {
       body: JSON.stringify({ "userAddress":userAddress, "randomNumber": randomNumber
       })
     };
-    fetch('http://localhost:5000/createImgPath', requestOptions)
+    fetch(`http://${backendAddress}/createImgPath`, requestOptions)
         .then((response) => {
           response.json().then(data=>{
             if(typeof(data)=='number'){
@@ -130,7 +130,7 @@ export default function Edit() {
           "color":fontColor
         })
         };
-        fetch('http://localhost:5000/createImg', requestOptions)
+        fetch(`http://${backendAddress}/createImg`, requestOptions)
             .then((response) => {
               response.json().then(data=>{
                 if(data=="Create Img Success"){
