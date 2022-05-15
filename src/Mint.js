@@ -134,7 +134,7 @@ export default function Edit() {
             .then((response) => {
               response.json().then(data=>{
                 if(data=="Create Img Success"){
-                  setDraftImg({uri:`http://localhost:5000/draft/${userAddress}.png`,time: new Date()})
+                  setDraftImg({uri:`http://${backendAddress}:5000/draft/${userAddress}.png`,time: new Date()})
                 }else{
                   console.log("ERROR IN CREATING IMG")
 
