@@ -25,7 +25,7 @@ const theme = createTheme();
 
 export default function Edit() {
   const backendAddress = process.env.REACT_APP_BACKEND_ADDRESS
-  const [baseImg, setBaseImg] = useState('https://images.unsplash.com/photo-1620321023374-d1a68fbc720d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1497&q=80')
+  const [baseImg, setBaseImg] = useState('http://images.unsplash.com/photo-1620321023374-d1a68fbc720d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1497&q=80')
   const [draftImg, setDraftImg] = useState({
     uri: '',
     time: new Date()
@@ -103,12 +103,11 @@ export default function Edit() {
       body: JSON.stringify({ "userAddress":userAddress, "msg": message
       })
     };
-    fetch(`https://${backendAddress}/createImgPath`, requestOptions)
+    fetch(`http://${backendAddress}/createImgPath`, requestOptions)
         .then((response) => {
           response.json().then(data=>{
             if(typeof(data)=='number'){
               let tokenId = data
-              alert(tokenId)
             }else{
               console.log(data)
               alert("Error occured. Please try again later")
@@ -135,12 +134,12 @@ export default function Edit() {
           "color":fontColor
         })
         };
-        fetch(`https://${backendAddress}/createImg`, requestOptions)
+        fetch(`http://${backendAddress}/createImg`, requestOptions)
             .then((response) => {
               response.json().then(data=>{
                 if(data=="Success"){
                   setImageIsValid(true)
-                  setDraftImg({uri:`https://${backendAddress}/draft/${userAddress}.png`,time: new Date()})
+                  setDraftImg({uri:`http://${backendAddress}/draft/${userAddress}.png`,time: new Date()})
                 }else{
                   setImageIsValid(false)
                   console.log("ERROR IN CREATING IMG")
