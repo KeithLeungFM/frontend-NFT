@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
-import { useHistory } from 'react-router-dom';
 
 
 import AppBar from '@mui/material/AppBar';
@@ -40,16 +39,24 @@ const theme = createTheme();
 
 
 export default function Album() {
-  const history = useHistory()
 
 const navToMint = function(event){
   window.location.href='/mint'
 }
-
-
 const navToOpensea = function(event){
   window.location.href='https:opensea.io'
 }
+
+/*
+numberOnDisplay: number
+
+
+get the last 20?
+number + 20
+
+display:
+
+*/
 /*
     const [queryStartToken, setQueryStartToken] = useState(0)
     const [gallery, setGallery] = useState([])

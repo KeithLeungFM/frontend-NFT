@@ -5,7 +5,7 @@ import BlockchainStories from "./contract/BlockchainStories.json"
 
 
 export default function Edit() {
-  const contractAddress = '0x5895fe3f8216EAeD2CfDAA5219efC28D083E622b'
+  const contractAddress = '0x0354dc7e46616d39c37907df45bcab86596acab8'
 
 
   const withdrawAll = async function(){

@@ -25,17 +25,19 @@ const theme = createTheme();
 
 export default function Edit() {
   const backendAddress = process.env.REACT_APP_BACKEND_ADDRESS
-  const [baseImg, setBaseImg] = useState('https://images.unsplash.com/photo-1650351858876-eec34590260c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')
+  const [baseImg, setBaseImg] = useState('https://images.unsplash.com/photo-1620321023374-d1a68fbc720d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1497&q=80')
   const [draftImg, setDraftImg] = useState({
     uri: '',
     time: new Date()
   })
-  const [fontColor, setFontColor] = useState('black')
+  const [fontColor, setFontColor] = useState('white')
   const [message, setMessage] = useState('')
   const [userAddress, setUserAddress] = useState('0xaddress')
   const [timer, setTimer] = useState(true)
 
-  const contractAddress = '0x5895fe3f8216EAeD2CfDAA5219efC28D083E622b'
+  const [imageIsValid, setImageIsValid] = useState(true)
+
+  const contractAddress = '0x0354dc7e46616d39c37907df45bcab86596acab8'
 
 
   const refreshUserAddress = async function(){
@@ -86,17 +88,19 @@ export default function Edit() {
       value: ethers.utils.parseEther('0.05'),
     })
     if(result){
-      callback1(randomNumber)
+      console.log(result)
+      callback1(userAddress)
     }else{
     }
   }
 
-  const createImgPath = async function (randomNumber){
+  const createImgPath = async function (userAddress){
+    //Create a http url for the img
     const requestOptions = {
       method: 'POST',
       mode:'cors',
       headers: { 'Content-Type': 'application/json','Accept': 'application/json' },
-      body: JSON.stringify({ "userAddress":userAddress, "randomNumber": randomNumber
+      body: JSON.stringify({ "userAddress":userAddress, "msg": message
       })
     };
     fetch(`http://${backendAddress}/createImgPath`, requestOptions)
@@ -104,6 +108,7 @@ export default function Edit() {
           response.json().then(data=>{
             if(typeof(data)=='number'){
               let tokenId = data
+              alert(tokenId)
             }else{
               console.log(data)
               alert("Error occured. Please try again later")
@@ -133,11 +138,12 @@ export default function Edit() {
         fetch(`http://${backendAddress}/createImg`, requestOptions)
             .then((response) => {
               response.json().then(data=>{
-                if(data=="Create Img Success"){
+                if(data=="Success"){
+                  setImageIsValid(true)
                   setDraftImg({uri:`http://${backendAddress}/draft/${userAddress}.png`,time: new Date()})
                 }else{
+                  setImageIsValid(false)
                   console.log("ERROR IN CREATING IMG")
-
                 }
               })
             })  
@@ -204,9 +210,10 @@ export default function Edit() {
             <TextField
                 margin="normal"
                 fullWidth
+                error={!imageIsValid}
                 name="image"
-                label="Image Link"
-                placeholder="Place a 350x350 image link here"
+                label={imageIsValid ? "Image Link" : "Invalid image link"}
+                placeholder="Place your own image link here"
                 type="Image Link"
                 onChange={handleChangeBaseImg}
 
@@ -230,6 +237,7 @@ export default function Edit() {
                 <Button style={{color:"black", fontWeight:"600"}} onClick={handleSetFontColorToBlack}>Black</Button>
                 <Button style={{color:"grey", fontWeight:"600"}} onClick={handleSetFontColorToWhite}>White</Button>
               </ButtonGroup>
+              <Button onClick={handleCreateImg}>Refresh Image</Button>
 
               <Button
                 type="submit"
