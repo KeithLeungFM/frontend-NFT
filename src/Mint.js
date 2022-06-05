@@ -103,7 +103,7 @@ export default function Edit() {
       body: JSON.stringify({ "userAddress":userAddress, "msg": message
       })
     };
-    fetch(`http://${backendAddress}/createImgPath`, requestOptions)
+    fetch(`https://${backendAddress}/createImgPath`, requestOptions)
         .then((response) => {
           response.json().then(data=>{
             if(typeof(data)=='number'){
@@ -135,12 +135,12 @@ export default function Edit() {
           "color":fontColor
         })
         };
-        fetch(`http://${backendAddress}/createImg`, requestOptions)
+        fetch(`https://${backendAddress}/createImg`, requestOptions)
             .then((response) => {
               response.json().then(data=>{
                 if(data=="Success"){
                   setImageIsValid(true)
-                  setDraftImg({uri:`http://${backendAddress}/draft/${userAddress}.png`,time: new Date()})
+                  setDraftImg({uri:`https://${backendAddress}/draft/${userAddress}.png`,time: new Date()})
                 }else{
                   setImageIsValid(false)
                   console.log("ERROR IN CREATING IMG")
