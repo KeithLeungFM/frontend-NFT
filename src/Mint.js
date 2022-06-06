@@ -37,7 +37,7 @@ export default function Edit() {
 
   const [imageIsValid, setImageIsValid] = useState(true)
 
-  const contractAddress = '0x8f43b4DF5123E59b3932c161A87a90C3a5a2DddB'
+  const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS
 
 
   const refreshUserAddress = async function(){
@@ -84,7 +84,7 @@ export default function Edit() {
     console.log(addr)
 
     const randomNumber = Math.random().toString(36).slice(2)
-    const result = await contract.payToMint(addr, randomNumber, "message", {
+    const result = await contract.payToMint(addr, randomNumber, message, {
       value: ethers.utils.parseEther('0.05'),
     })
     if(result){
@@ -108,6 +108,9 @@ export default function Edit() {
           response.json().then(data=>{
             if(typeof(data)=='number'){
               let tokenId = data
+              let redir = `httpss://testnets.opensea.io/assets/rinkeby/${contractAddress}/${tokenId}`
+              window.location.href=redir
+
             }else{
               console.log(data)
               alert("Error occured. Please try again later")
