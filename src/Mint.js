@@ -89,18 +89,18 @@ export default function Edit() {
     })
     if(result){
       console.log(result)
-      callback1(userAddress)
+      callback1(userAddress, randomNumber)
     }else{
     }
   }
 
-  const createImgPath = async function (userAddress){
+  const createImgPath = async function (userAddress, randomNumber){
     //Create a https url for the img
     const requestOptions = {
       method: 'POST',
       mode:'cors',
       headers: { 'Content-Type': 'application/json','Accept': 'application/json' },
-      body: JSON.stringify({ "userAddress":userAddress, "msg": message
+      body: JSON.stringify({ "userAddress":userAddress, "msg": message, "randomNumber":randomNumber
       })
     };
     fetch(`https://${backendAddress}/createImgPath`, requestOptions)
