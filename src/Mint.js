@@ -25,7 +25,7 @@ const theme = createTheme();
 
 export default function Edit() {
   const backendAddress = process.env.REACT_APP_BACKEND_ADDRESS
-  const [baseImg, setBaseImg] = useState('http://images.unsplash.com/photo-1620321023374-d1a68fbc720d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1497&q=80')
+  const [baseImg, setBaseImg] = useState('https://images.unsplash.com/photo-1620321023374-d1a68fbc720d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1497&q=80')
   const [draftImg, setDraftImg] = useState({
     uri: '',
     time: new Date()
@@ -37,7 +37,7 @@ export default function Edit() {
 
   const [imageIsValid, setImageIsValid] = useState(true)
 
-  const contractAddress = '0x0354dc7e46616d39c37907df45bcab86596acab8'
+  const contractAddress = '0x8f43b4DF5123E59b3932c161A87a90C3a5a2DddB'
 
 
   const refreshUserAddress = async function(){
@@ -95,7 +95,7 @@ export default function Edit() {
   }
 
   const createImgPath = async function (userAddress){
-    //Create a http url for the img
+    //Create a https url for the img
     const requestOptions = {
       method: 'POST',
       mode:'cors',
@@ -103,7 +103,7 @@ export default function Edit() {
       body: JSON.stringify({ "userAddress":userAddress, "msg": message
       })
     };
-    fetch(`http://${backendAddress}/createImgPath`, requestOptions)
+    fetch(`https://${backendAddress}/createImgPath`, requestOptions)
         .then((response) => {
           response.json().then(data=>{
             if(typeof(data)=='number'){
@@ -134,12 +134,12 @@ export default function Edit() {
           "color":fontColor
         })
         };
-        fetch(`http://${backendAddress}/createImg`, requestOptions)
+        fetch(`https://${backendAddress}/createImg`, requestOptions)
             .then((response) => {
               response.json().then(data=>{
                 if(data=="Success"){
                   setImageIsValid(true)
-                  setDraftImg({uri:`http://${backendAddress}/draft/${userAddress}.png`,time: new Date()})
+                  setDraftImg({uri:`https://${backendAddress}/draft/${userAddress}.png`,time: new Date()})
                 }else{
                   setImageIsValid(false)
                   console.log("ERROR IN CREATING IMG")
