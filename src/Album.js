@@ -44,7 +44,7 @@ const navToMint = function(event){
   window.location.href='/mint'
 }
 const navToOpensea = function(event){
-  window.location.href='https:opensea.io'
+  window.location.href='https://opensea.io/collection/blockchainstories'
 }
 
 /*

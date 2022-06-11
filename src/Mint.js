@@ -112,7 +112,7 @@ export default function Edit() {
           response.json().then(data=>{
             if(typeof(data)=='number'){
               let tokenId = data
-              let redir = `https://testnets.opensea.io/assets/rinkeby/${contractAddress}/${tokenId}`
+              let redir = `https://opensea.io/assets/ethereum/${contractAddress}/${tokenId}`
               window.location.href=redir
 
             }else{
