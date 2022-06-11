@@ -39,8 +39,12 @@ export default function Edit() {
 
   const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS
 
-
   const refreshUserAddress = async function(){
+    if(window.ethereum){
+    }else{
+      alert("Please install metamask at https://metamask.io")
+    }
+  
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send('eth_requestAccounts', []); // <- this promps user to connect metamask
 
